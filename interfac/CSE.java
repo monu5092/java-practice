@@ -1,0 +1,33 @@
+package com.kodewala.interfac;
+
+public class CSE implements ICollege
+
+{
+
+	@Override
+	public void tutionFee() {
+		// TODO Auto-generated method stub
+		System.out.println(ICollege.admissionFee+100000);
+	}
+
+	@Override
+	public void lab() {
+		// TODO Auto-generated method stub
+		System.out.print("all Technical subject lab");
+		
+	}
+
+	@Override
+	public void subject() {
+		System.out.print("Technical and NonTechnical");
+		
+	}
+
+	@Override
+	public void facullty() {
+		// TODO Auto-generated method stub
+		System.out.print("Technialfacult and NonTechnical Faculty");
+		
+	}
+
+}

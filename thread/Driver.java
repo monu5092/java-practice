@@ -1,40 +1,37 @@
 package com.kodewala.thread;
 
-
-class PrintEvenAndOdd extends Thread{
-	
+class OddNumber extends Thread
+{
 	@Override
-	public void run() {
-		printOdd();
-		printEven();
-	}
-	private void printOdd()
+	public void run()
 	{
-		for(int i=0;i<10;i++)
-		{
-			if(i%2!=0) {
-				System.out.println("Odd : "+i+" Thread name: "+Thread.currentThread().getName());
-			}
-		}
-	}
-	private void printEven() {
-		for(int i=0;i<10;i++) {
-			if(i%2==0)
-			{
-				System.out.println("Even : "+i+" Thread name: "+Thread.currentThread().getName());
-			}
+		int n = 19;
+		if(n%2!=0) {
+			System.out.println("Number is "+ n +" Odd."+Thread.currentThread().getName());
 		}
 	}
 }
-public class Driver {
+class EvenNumber extends Thread{
+	@Override
+	public void run()
+	{
+		int m = 12;
+		if(m%2==0) {
+			System.out.println("Number is "+ m +" Even."+Thread.currentThread().getName());
+		}
+	}
+}
+
+public class Driver{
    public static void main(String args[])
    {
-	   PrintEvenAndOdd t1 = new PrintEvenAndOdd();
-	  // t1.start();
+	   System.out.println("Start:");
+	   OddNumber odd = new OddNumber();
+	   odd.start();
 	   
-	   t1.run();
+	   EvenNumber even = new EvenNumber();
+	   even.start();
 	   
-	   PrintEvenAndOdd t2 = new  PrintEvenAndOdd();
-	   t2.start();
+	   System.out.println("End:");
    }
 }

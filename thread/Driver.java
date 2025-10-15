@@ -1,37 +1,43 @@
-package com.kodewala.thread;
+package com.kodewala.reentrantsynchronized.thread;
 
-class OddNumber extends Thread
+import java.util.concurrent.locks.ReentrantLock;
+
+class AccountMgmt
 {
-	@Override
-	public void run()
+	ReentrantLock reentrantlock = new ReentrantLock();
+	public void addPayee()
 	{
-		int n = 19;
-		if(n%2!=0) {
-			System.out.println("Number is "+ n +" Odd."+Thread.currentThread().getName());
+		reentrantlock.lock();
+		for(int i=0;i<10;i++)
+		{
+			System.out.println(i+" "+Thread.currentThread().getName());
 		}
-	}
-}
-class EvenNumber extends Thread{
-	@Override
-	public void run()
-	{
-		int m = 12;
-		if(m%2==0) {
-			System.out.println("Number is "+ m +" Even."+Thread.currentThread().getName());
-		}
+		reentrantlock.unlock();   // if ReentrantLock is not unlock then only one thread is running is called deadLock 
 	}
 }
 
-public class Driver{
+class MyThread extends Thread
+{
+	AccountMgmt accountMgmt;
+	public void run()
+	{
+		accountMgmt.addPayee();
+	}
+	public MyThread(AccountMgmt accountMgmt)
+	{
+		this.accountMgmt = accountMgmt;
+	}
+}
+
+public class Driver {
    public static void main(String args[])
    {
-	   System.out.println("Start:");
-	   OddNumber odd = new OddNumber();
-	   odd.start();
-	   
-	   EvenNumber even = new EvenNumber();
-	   even.start();
-	   
-	   System.out.println("End:");
+	   AccountMgmt task = new AccountMgmt();
+	   MyThread t1 = new MyThread(task);
+	   MyThread t2 = new MyThread(task);
+	   MyThread t3 = new MyThread(task);
+	   t1.start();
+	   t2.start();
+	   t3.start();
    }
 }
